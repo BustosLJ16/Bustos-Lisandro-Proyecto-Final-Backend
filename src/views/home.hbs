@@ -1,5 +1,5 @@
-<h1 class="text-center">Lista de Productos:</h1>
 {{#if products}}
+<h1 class="text-center">Lista de Productos:</h1>
 <div class="row">
     {{#each products}}
     <div class="col-3 card-container">
@@ -9,32 +9,15 @@
                 <h5 class="card-text text-center">{{this.title}}</h5>
                 <p class="card-text text-center text-danger">${{this.price}} ARS</p>
                 <p class="text-center">
-                    <button class="btn btn-dark rounded-pill">Agregar Al Carrito
-                    </button>
+                    <form action="/api/carts/679ae4aa30c384ffc34f7ab5/products/{{this._id}}" method="POST">
+                        <button type="submit" class="btn btn-dark rounded-pill">Agregar Al Carrito</button>
+                    </form>
                 </p>
             </div>
         </div>
     </div>
     {{/each}}
 </div>
-<div class="d-flex justify-content-center p-3">
-    {{#if hasPrevPage}}
-    <button class="btn btn-secondary rounded-pill">
-        <a class="m-2 text-dark text-decoration-none" href="?numPage={{prevPage}}">
-            <i class="bi bi-chevron-left"></i>
-        </a>
-    </button>
-    {{/if}}
-    <label class="m-2">{{page}}</label>
-    {{#if hasNextPage}}
-    <button class="btn btn-secondary rounded-pill">
-        <a class="m-2 text-dark text-decoration-none" href="?numPage={{nextPage}}">
-            <i class="bi bi-chevron-right"></i>
-        </a>
-    </button>
-    {{/if}}
-</div>
 {{else}}
-    <h5>No hay Productos Disponibles.</h5>
+    <h1 class="text-center">Lo sentimos. No hay Productos Disponibles.</h1>
 {{/if}}
-

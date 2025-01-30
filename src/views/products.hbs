@@ -1,0 +1,23 @@
+{{#if products}}
+<h1 class="text-center">Lista de Productos:</h1>
+<div class="row">
+    {{#each products}}
+    <div class="col-3 card-container">
+        <div class="card border-0">
+            <img src={{this.thumbnail}} class="card-img-top" alt={{this.title}} />
+            <div class="card-body">
+                <h5 class="card-text text-center">{{this.title}}</h5>
+                <p class="card-text text-center text-danger">${{this.price}} ARS</p>
+                <p class="text-center">
+                    <form action="/api/carts/679ae4aa30c384ffc34f7ab5/products/{{this._id}}" method="POST">
+                        <button type="submit" class="btn btn-dark rounded-pill">Agregar Al Carrito</button>
+                    </form>
+                </p>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>
+{{else}}
+    <h1 class="text-center">Lo sentimos. No hay Productos Disponibles.</h1>
+{{/if}}

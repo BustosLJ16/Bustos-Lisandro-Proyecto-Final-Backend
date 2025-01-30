@@ -3,11 +3,8 @@ import productModel from '../../models/products.models.js';
 
 const router = Router();
 
-// router.get('/', (req, res) => {
-//     res.send('Hola estas en Products')
-// })
-
-router.get('/', async (req, res) => { // Obtener Lista de Productos
+// Obtener Lista de Productos
+router.get('/', async (req, res) => { 
     try {
         const { limit=10 } = req.query // Defino por defecto 10 productos para renderizarlos
         const {

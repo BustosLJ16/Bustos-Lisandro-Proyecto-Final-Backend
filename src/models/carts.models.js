@@ -5,12 +5,15 @@ const cartSchema = new Schema({
         type: [{
             product:{
                 type: Schema.Types.ObjectId,
-                ref: 'products'
+                ref: 'products',
+                required: true
             },
-            quantity: Number
+            quantity:{
+                type: Number,
+                required: true,
+                default: 1}
         }],
-        price: Number,
-        date: Date
+        price: Number
     }
 });
 
