@@ -86,39 +86,29 @@ router.put('/:cid/products/:pid', async (req, res) => {
     }
 });
 
-// Agregar Productos mediante ID y Body (PUT)
+// Agregar Producto al Carrito (POST)
 router.post('/:cid/products/:pid', async (req, res) => {
     const { cid, pid } = req.params;
 
     try {
         const cart = await cartsModel.findById(cid);
         if (!cart) return res.status(404).json({ error: "Carrito no encontrado" });
+
         const productIndex = cart.products.findIndex(p => p.product.toString() === pid);
 
         if (productIndex === -1) {
             cart.products.push({ product: pid, quantity: 1 });
-            console.log("Producto agregado al carrito con cantidad 1");
         } else {
-            const updatedCart = await cartsModel.findOneAndUpdate(
-                { _id: cid, "products.product": pid },
-                { $set: { "products.$.quantity": Math.max(1, quantity) } }, 
-                { new: true } 
-            );
-            console.log("Cantidad incrementada en el carrito");
-
-            if (!updatedCart) {
-                return res.status(404).json({ error: "No se pudo actualizar el carrito" });
-            }
+            cart.products[productIndex].quantity += 1;
         }
+
         await cart.save();
-        res.redirect('/'); 
+        res.redirect('/');  // 🔹 Redireccionamos a Home después de agregar el producto
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error al agregar el producto al carrito' });
     }
 });
-
-
 
 
 

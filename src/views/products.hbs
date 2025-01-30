@@ -1,5 +1,20 @@
 {{#if products}}
 <h1 class="text-center">Lista de Productos:</h1>
+
+    <div class="col d-flex align-items-center justify-content-end">
+        <h5 class="mx-2">Filtrar por: </h5>
+        <button class="btn bg-secondary-subtle mx-2">
+            <a href="/?sort=asc" aria-current="page" class="text-dark text-decoration-none">
+                <i class="bi bi-sort-down-alt"></i>
+            </a>
+        </button>
+        <button class="btn bg-secondary-subtle mx-2">
+            <a href="/?sort=des" aria-current="page" class="text-dark text-decoration-none">
+                <i class="bi bi-sort-down"></i>
+            </a>
+        </button>
+    </div>
+
 <div class="row">
     {{#each products}}
     <div class="col-3 card-container">
@@ -9,15 +24,34 @@
                 <h5 class="card-text text-center">{{this.title}}</h5>
                 <p class="card-text text-center text-danger">${{this.price}} ARS</p>
                 <p class="text-center">
-                    <form action="/api/carts/679ae4aa30c384ffc34f7ab5/products/{{this._id}}" method="POST">
-                        <button type="submit" class="btn btn-dark rounded-pill">Agregar Al Carrito</button>
-                    </form>
+                <form action="/api/carts/679ae39d731142c5e46f70f1/products/{{this._id}}" method="post"
+                    class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-dark rounded-pill">Agregar Al Carrito</button>
+                </form>
                 </p>
             </div>
         </div>
     </div>
     {{/each}}
 </div>
+
+<!-- Controles de Paginación -->
+<div class="d-flex justify-content-center mt-4">
+    {{#if hasPrevPage}}
+    <a href="/?numPage={{prevPage}}" class="btn btn-secondary mx-2">
+        <i class="bi bi-chevron-left"></i>
+    </a>
+    {{/if}}
+
+    <span class="mx-3 d-flex justify-contet-center align-items-center">Página {{page}} de {{totalPages}}</span>
+
+    {{#if hasNextPage}}
+    <a href="/?numPage={{nextPage}}" class="btn btn-secondary mx-2">
+        <i class="bi bi-chevron-right"></i>
+    </a>
+    {{/if}}
+</div>
+
 {{else}}
-    <h1 class="text-center">Lo sentimos. No hay Productos Disponibles.</h1>
+<h1 class="text-center">Lo sentimos. No hay Productos Disponibles.</h1>
 {{/if}}

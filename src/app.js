@@ -17,8 +17,19 @@ app.use(express.json());
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}));
 
+
 // Configuración de Handlebars
-app.engine('hbs', handlebars.engine({ extname: '.hbs'}));
+// Registrar helpers personalizados
+const hbsHelper = {
+    multiply: (a, b) => a * b,
+};
+
+// app.engine('hbs', handlebars.engine({ extname: '.hbs'}));
+app.engine('hbs', handlebars.engine({
+    extname: ".hbs",
+    helpers: hbsHelper,
+    runtimeOptions: { allowProtoPropertiesByDefault: true, allowProtoMethodsByDefault: true },}
+));
 app.set('view engine', 'hbs');
 app.set('views', 'src/views');
 
