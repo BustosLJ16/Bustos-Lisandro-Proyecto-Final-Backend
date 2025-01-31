@@ -24,13 +24,17 @@
                 <h5 class="card-text text-center">{{this.title}}</h5>
                 <p class="card-text text-center text-danger">${{this.price}} ARS</p>
                 <p class="text-center">
-                <form action="/api/carts/679ae39d731142c5e46f70f1/products/{{this._id}}" method="post"
+                {{!-- <form action="/api/carts/679ae39d731142c5e46f70f1/products/{{this._id}}" method="post"
                     class="d-flex justify-content-center">
                     <button type="submit" class="btn btn-dark rounded-pill">Agregar Al Carrito</button>
-                </form>
+                </form> --}}
+                <form action="/api/carts/679ae39d731142c5e46f70f1/products/{{this._id}}" method="post" class="d-flex justify-content-center">
+    <button type="submit" class="btn btn-dark rounded-pill">Agregar Al Carrito</button>
+</form>
                 </p>
             </div>
         </div>
+        
     </div>
     {{/each}}
 </div>

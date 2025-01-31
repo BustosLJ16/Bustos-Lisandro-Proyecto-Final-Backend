@@ -23,8 +23,6 @@ app.use(express.urlencoded({extended: true}));
 const hbsHelper = {
     multiply: (a, b) => a * b,
 };
-
-// app.engine('hbs', handlebars.engine({ extname: '.hbs'}));
 app.engine('hbs', handlebars.engine({
     extname: ".hbs",
     helpers: hbsHelper,

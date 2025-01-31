@@ -90,7 +90,12 @@ router.get("/carts/:cid", async (req, res) => {
             return res.status(404).json({ status: "error", message: "Carrito no encontrado" });
         }
 
-        const cartTotal = cart.products.reduce((total, item) => total + item.quantity * item.product.price, 0);
+        const cartTotal = cart.products.reduce((total, item) => {
+          if (item.product && item.product.price) {
+              return total + item.quantity * item.product.price;
+          }
+          return total;  // Si no hay precio, no lo sumamos
+      }, 0);
 
         res.render("carts", { cart, cartTotal });
     } catch (error) {
@@ -98,8 +103,68 @@ router.get("/carts/:cid", async (req, res) => {
     }
 });
 
+// Ruta para mostrar productos con paginación
+router.get('/realtimeproducts', async (req, res) => {
+    const { limit = 12, numPage = 1 } = req.query; // Definir el límite y la página
+    try {
+      const {
+        docs,
+        page,
+        totalPages,
+        hasPrevPage,
+        hasNextPage,
+        prevPage,
+        nextPage
+      } = await productModel.paginate({}, { limit, page: numPage, lean: true });
+  
+      res.render('realTimeProducts', {
+        products: docs,
+        hasPrevPage,
+        hasNextPage,
+        totalPages,
+        prevPage,
+        nextPage,
+        page
+      });
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  });
+  
+  // Ruta para cargar el producto a editar
+  router.get('/realtimeproducts/:id/edit', async (req, res) => {
+    try {
+      const product = await productModel.findById(req.params.id).populate('category');
+      const { numPage = 1 } = req.query;
+      const limit = 6;
+  
+      const {
+        docs,
+        page,
+        totalPages,
+        hasPrevPage,
+        hasNextPage,
+        prevPage,
+        nextPage
+      } = await productModel.paginate({}, { limit, page: numPage, lean: true });
+  
+      res.render('realTimeProducts', {
+        products: docs,
+        productToEdit: product, // Pasamos el producto a editar a la vista
+        hasPrevPage,
+        hasNextPage,
+        totalPages,
+        prevPage,
+        nextPage,
+        page
+      });
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  });
 
-// LLamo a los Routers y defino las Rutas
+
+// LLamo a los Routers para usarlos con Pos
 router.use('/api/products', productsRouter);
 router.use('/api/carts', cartsRouter);
 router.use('/realtimeproducts', realtimeproductsRouter);

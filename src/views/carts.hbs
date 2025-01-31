@@ -1,36 +1,43 @@
-<h1>Carrito de Compras</h1>
+<h1 class="d-flex justify-content-center m-2">Carrito de Compras</h1>
 
 {{#if cart.products.length}}
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Producto</th>
-                <th>Cantidad</th>
-                <th>Precio</th>
-                <th>Total</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each cart.products}}
-                <tr>
-                    <td>{{this.product.title}}</td>
-                    <td>{{this.quantity}}</td>
-                    <td>${{this.product.price}}</td>
-                    <td>${{multiply this.quantity this.product.price}}</td>
-                    <td>
-                        <button class="btn btn-danger" onclick="removeFromCart('{{this.product._id}}')">Eliminar</button>
-                    </td>
-                </tr>
-            {{/each}}
-        </tbody>
-    </table>
+<table class="table mt-5">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Total</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each cart.products}}
+        <tr>
+            <td><img src={{this.product.thumbnail}} alt={{this.product.title}} width="90"></td>
+            <td class="align-middle">{{this.product.title}}</td>
+            <td class="align-middle">{{this.quantity}}</td>
+            <td class="align-middle">${{this.product.price}} ARS</td>
+            <td class="align-middle">${{multiply this.quantity this.product.price}} ARS</td>
+            <td class="align-middle">
+                <button class="btn btn-danger" onclick="removeFromCart('{{this.product._id}}')">
+                    <i class="bi bi-trash3-fill"></i> Eliminar
+                </button>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
 
-    <h3>Total: ${{cartTotal}}</h3>
-    <button class="btn btn-warning" onclick="clearCart()">Vaciar Carrito</button>
+<h3 class="d-flex justify-content-center m-2">Total: ${{cartTotal}} ARS</h3>
+<button class="btn btn-danger m-2" onClick=clearCart()>
+    <i class="bi bi-trash3"></i> Vaciar
+</button>
+
 
 {{else}}
-    <p>No hay productos en el carrito.</p>
+<p>No hay productos en el carrito.</p>
 {{/if}}
 
 <script>
