@@ -4,17 +4,26 @@ import productModel from '../../models/products.models.js';
 const router = Router();
 
 // Obtener Lista de Productos
-router.get('/', async (req, res) => { 
+router.get('/', async (req, res) => {
     try {
-        const { limit=10 } = req.query // Defino por defecto 10 productos para renderizarlos
+        const {
+            limit = 10
+        } = req.query // Defino por defecto 10 productos para renderizarlos
         const {
             docs,
             page,
             totalPages,
             hasPrevPage,
             hasNextPage
-        } = await productModel.paginate({}, {limit});
-        res.send({status:'Sucess', payload: {docs}});
+        } = await productModel.paginate({}, {
+            limit
+        });
+        res.send({
+            status: 'Sucess',
+            payload: {
+                docs
+            }
+        });
     } catch (error) {
         console.log(error);
     }
@@ -22,9 +31,16 @@ router.get('/', async (req, res) => {
 
 router.get('/:pid', async (req, res) => { // Buscar Producto Por ID
     try {
-        const { pid } = req.params;
-        const productById = await productModel.findById({_id: pid});
-        res.send({status: 'Sucess', payload: productById});
+        const {
+            pid
+        } = req.params;
+        const productById = await productModel.findById({
+            _id: pid
+        });
+        res.send({
+            status: 'Sucess',
+            payload: productById
+        });
     } catch (error) {
         console.log(error);
     }
@@ -32,10 +48,15 @@ router.get('/:pid', async (req, res) => { // Buscar Producto Por ID
 
 router.post('/', async (req, res) => { // Crear un Producto
     try {
-        const { body } = req;
+        const {
+            body
+        } = req;
         const result = await productModel.create(body);
 
-        res.send({status: 'Sucess', payload: result});
+        res.send({
+            status: 'Sucess',
+            payload: result
+        });
     } catch (error) {
         console.log(error);
     }
@@ -43,10 +64,21 @@ router.post('/', async (req, res) => { // Crear un Producto
 
 router.put('/:pid', async (req, res) => {
     try {
-        const { pid } = req.params;
-        const { body } = req;
-        const resultUpdated = await productModel.findByIdAndUpdate({_id: pid}, body, {new: true});
-        res.send({status: 'Sucess', payload: resultUpdated })
+        const {
+            pid
+        } = req.params;
+        const {
+            body
+        } = req;
+        const resultUpdated = await productModel.findByIdAndUpdate({
+            _id: pid
+        }, body, {
+            new: true
+        });
+        res.send({
+            status: 'Sucess',
+            payload: resultUpdated
+        })
     } catch (error) {
         console.log(error);
     }
@@ -54,9 +86,18 @@ router.put('/:pid', async (req, res) => {
 
 router.delete('/:pid', async (req, res) => {
     try {
-        const { pid } = req.params;
-        const resultDeleted = await productModel.findByIdAndDelete({_id: pid}, {new: true});
-        res.send({status: 'Sucess', payload: resultDeleted});
+        const {
+            pid
+        } = req.params;
+        const resultDeleted = await productModel.findByIdAndDelete({
+            _id: pid
+        }, {
+            new: true
+        });
+        res.send({
+            status: 'Sucess',
+            payload: resultDeleted
+        });
     } catch (error) {
         console.log(error);
     }

@@ -1,8 +1,12 @@
 // Importaciones de Dependencias
 import express from 'express';
 import handlebars from 'express-handlebars';
-import { Server as HttpServer } from 'http';
-import { Server as SocketIo } from 'socket.io';
+import {
+    Server as HttpServer
+} from 'http';
+import {
+    Server as SocketIo
+} from 'socket.io';
 import viewsRouter from './routes/views.routes.js'; // Router de las Views
 import connectDB from './config/index.js'; // LLamada a la función que conecta con Mongoose
 
@@ -15,7 +19,9 @@ const io = new SocketIo(httpServer);
 // Midlewares de Express
 app.use(express.json());
 app.use(express.static('public'));
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({
+    extended: true
+}));
 
 
 // Configuración de Handlebars
@@ -26,8 +32,11 @@ const hbsHelper = {
 app.engine('hbs', handlebars.engine({
     extname: ".hbs",
     helpers: hbsHelper,
-    runtimeOptions: { allowProtoPropertiesByDefault: true, allowProtoMethodsByDefault: true },}
-));
+    runtimeOptions: {
+        allowProtoPropertiesByDefault: true,
+        allowProtoMethodsByDefault: true
+    },
+}));
 app.set('view engine', 'hbs');
 app.set('views', 'src/views');
 
@@ -39,3 +48,5 @@ connectDB() // Ejecución de la función que conecta con Mongoose
 httpServer.listen(PORT, () => {
     console.log(`Servidor escuchado en el puerto ${PORT}.`);
 });
+
+export default app;

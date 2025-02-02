@@ -1,21 +1,19 @@
 <!-- Paginación -->
 <div class="d-flex align-items-center justify-content-center m-4">
-    {{#if hasPrevPage}}
-    <a href="../realtimeproducts/?numPage={{prevPage}}" class="btn btn-secondary mx-2">
-        <i class="bi bi-chevron-left"></i>
-    </a>
-    {{/if}}
+  {{#if hasPrevPage}}
+  <a href="../realtimeproducts/?numPage={{prevPage}}" class="btn btn-secondary mx-2">
+    <i class="bi bi-chevron-left"></i>
+  </a>
+  {{/if}}
 
-    <span class="mx-3 d-flex justify-contet-center align-items-center">Página {{page}} de {{totalPages}}</span>
+  <span class="mx-3 d-flex justify-contet-center align-items-center">Página {{page}} de {{totalPages}}</span>
 
-    {{#if hasNextPage}}
-    <a href="../realtimeproducts/?numPage={{nextPage}}" class="btn btn-secondary mx-2">
-        <i class="bi bi-chevron-right"></i>
-    </a>
-    {{/if}}
+  {{#if hasNextPage}}
+  <a href="../realtimeproducts/?numPage={{nextPage}}" class="btn btn-secondary mx-2">
+    <i class="bi bi-chevron-right"></i>
+  </a>
+  {{/if}}
 </div>
-
-
 
 <!-- Botón para cambiar a la vista admin -->
 <button id="adminViewButton" class="btn btn-secondary">Vista Admin</button>
@@ -30,43 +28,52 @@
       <!-- Columna 1 -->
       <div class="col-md-3 mb-3">
         <label for="title" class="form-label">Título:</label>
-        <input type="text" name="title" value="{{#if productToEdit}}{{productToEdit.title}}{{/if}}" class="form-control" required><br>
+        <input type="text" name="title" value="{{#if productToEdit}}{{productToEdit.title}}{{/if}}" class="form-control"
+          required><br>
       </div>
       <div class="col-md-3 mb-3">
         <label for="code" class="form-label">Código:</label>
-        <input type="text" name="code" value="{{#if productToEdit}}{{productToEdit.code}}{{/if}}" class="form-control" required><br>
+        <input type="text" name="code" value="{{#if productToEdit}}{{productToEdit.code}}{{/if}}" class="form-control"
+          required><br>
       </div>
       <div class="col-md-3 mb-3">
         <label for="price" class="form-label">Precio:</label>
-        <input type="number" name="price" value="{{#if productToEdit}}{{productToEdit.price}}{{/if}}" class="form-control" required><br>
+        <input type="number" name="price" value="{{#if productToEdit}}{{productToEdit.price}}{{/if}}"
+          class="form-control" required><br>
       </div>
       <div class="col-md-3 mb-3">
         <label for="category" class="form-label">Categoría:</label>
-        <input type="text" name="category" value="{{#if productToEdit}}{{productToEdit.category}}{{/if}}" class="form-control" required><br>
+        <input type="text" name="category" value="{{#if productToEdit}}{{productToEdit.category}}{{/if}}"
+          class="form-control" required><br>
       </div>
     </div>
-    
+
     <div class="row">
       <!-- Columna 2 -->
       <div class="col-md-3 mb-3">
         <label for="description" class="form-label">Descripción:</label>
-        <textarea name="description" class="form-control" required>{{#if productToEdit}}{{productToEdit.description}}{{/if}}</textarea><br>
+        <textarea name="description" class="form-control"
+          required>{{#if productToEdit}}{{productToEdit.description}}{{/if}}</textarea><br>
       </div>
       <div class="col-md-3 mb-3">
         <label for="stock" class="form-label">Stock:</label>
-        <input type="number" name="stock" value="{{#if productToEdit}}{{productToEdit.stock}}{{/if}}" class="form-control" required><br>
+        <input type="number" name="stock" value="{{#if productToEdit}}{{productToEdit.stock}}{{/if}}"
+          class="form-control" required><br>
       </div>
       <div class="col-md-3 mb-3">
         <label for="type" class="form-label">Tipo:</label>
-        <input type="text" name="type" value="{{#if productToEdit}}{{productToEdit.type}}{{/if}}" class="form-control" required><br>
+        <input type="text" name="type" value="{{#if productToEdit}}{{productToEdit.type}}{{/if}}" class="form-control"
+          required><br>
       </div>
       <div class="col-md-3 mb-3">
         <label for="thumbnail" class="form-label">Imagen (URL):</label>
-        <input type="text" name="thumbnail" value="{{#if productToEdit}}{{productToEdit.thumbnail}}{{/if}}" class="form-control" required><br>
+        <input type="text" name="thumbnail" value="{{#if productToEdit}}{{productToEdit.thumbnail}}{{/if}}"
+          class="form-control" required><br>
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary m-4">{{#if productToEdit}}Editar Producto{{else}}Agregar Producto{{/if}}</button>
+    <button type="submit" class="btn btn-primary m-4">{{#if productToEdit}}Editar Producto{{else}}Agregar
+      Producto{{/if}}</button>
   </form>
 </div>
 
@@ -74,29 +81,29 @@
 <h2 class="d-flex align-items-center justify-content-center m-4">Lista de Productos</h2>
 <div class="row m-4">
   {{#each products}}
-    <div class="col-md-4 mb-4">
-      <div class="card">
-        <img src="{{this.thumbnail}}" class="card-img-top" alt="{{this.title}}">
-        <div class="card-body">
-          <h5 class="card-title">{{this.title}}</h5>
-          <p class="card-text">{{this.description}}</p>
-          <p class="card-text"><strong>Precio:</strong> ${{this.price}}</p>
-          <p class="card-text"><strong>Stock:</strong> {{this.stock}}</p>
-        </div>
-        <div class="card-footer d-flex justify-content-between">
-          <a href="/realtimeproducts/{{this._id}}/edit?numPage={{numPage}}" class="btn btn-warning">Editar</a>
-          <form action="/realtimeproducts/{{this._id}}/delete" method="POST" class="d-inline">
-            <button type="submit" class="btn btn-danger">Eliminar</button>
-          </form>
-        </div>
+  <div class="col-md-4 mb-4">
+    <div class="card">
+      <img src="{{this.thumbnail}}" class="card-img-top" alt="{{this.title}}">
+      <div class="card-body">
+        <h5 class="card-title">{{this.title}}</h5>
+        <p class="card-text">{{this.description}}</p>
+        <p class="card-text"><strong>Precio:</strong> ${{this.price}}</p>
+        <p class="card-text"><strong>Stock:</strong> {{this.stock}}</p>
+      </div>
+      <div class="card-footer d-flex justify-content-between">
+        <a href="/realtimeproducts/{{this._id}}/edit?numPage={{numPage}}" class="btn btn-warning">Editar</a>
+        <form action="/realtimeproducts/{{this._id}}/delete" method="POST" class="d-inline">
+          <button type="submit" class="btn btn-danger">Eliminar</button>
+        </form>
       </div>
     </div>
+  </div>
   {{/each}}
 </div>
 
 <script>
   // Script para mostrar/ocultar el formulario de administración
-  document.getElementById('adminViewButton').addEventListener('click', function() {
+  document.getElementById('adminViewButton').addEventListener('click', function () {
     var adminView = document.getElementById('adminView');
     if (adminView.style.display === 'none') {
       adminView.style.display = 'block';
@@ -105,4 +112,3 @@
     }
   });
 </script>
-
